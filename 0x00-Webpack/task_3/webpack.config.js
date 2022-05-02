@@ -50,18 +50,17 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
-        type: 'asset/resource',
-        use: [
+				test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
+				use: [
 					{
-						loader: 'image-webpack-loader',
+						loader: ['file-loader', 'image-webpack-loader'],
 						options: {
 							bypassOnDebug: true,
 							disable: true,
 						},
 					},
 				],
-      },
+			},
     ]
   }
 };
