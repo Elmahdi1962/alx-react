@@ -1,9 +1,6 @@
-button {
-    display: inline;
-}
+
 #count {
-    float: right;
-    margin: 0;
+    display: inline;
     font-weight: bold;
 }
 #logo {
