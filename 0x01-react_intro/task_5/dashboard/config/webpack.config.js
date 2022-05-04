@@ -5,13 +5,13 @@ module.exports = {
   mode: 'production',
   entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve('./dist'),
     filename: 'bundle.js',
   },
   devtool: 'inline-source-map',
   devServer: {
     static: {
-      directory: path.resolve('dist'),
+      directory: path.resolve('./dist'),
     },
     hot: true,
   },
