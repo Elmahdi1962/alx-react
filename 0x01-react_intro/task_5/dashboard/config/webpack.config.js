@@ -8,12 +8,17 @@ module.exports = {
     path: path.resolve('./dist'),
     filename: 'bundle.js',
   },
+  performance: {
+    maxAssetSize: 999999999999,
+    maxEntrypointSize: 999999999999
+  },
   devtool: 'inline-source-map',
   devServer: {
     static: {
       directory: path.resolve('./dist'),
     },
     hot: true,
+    port: 8564
   },
   module: {
     rules: [
@@ -34,6 +39,11 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.(js|jsx)$/i,
+        exclude: /node_modules/,
+        use: 'babel-loader'
       }
     ]
   }
