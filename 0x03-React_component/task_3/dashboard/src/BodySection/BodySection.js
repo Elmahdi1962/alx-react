@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types';
 
-export default class BodySection extends Component {
+class BodySection extends Component {
   render() {
     return (
       <div className='bodySection'>
@@ -10,3 +11,17 @@ export default class BodySection extends Component {
     );
   }
 }
+
+BodySection. defaultProps = {
+	children: <React.Fragment />
+};
+
+BodySection.propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element
+  ])
+};
+
+export default BodySection;
