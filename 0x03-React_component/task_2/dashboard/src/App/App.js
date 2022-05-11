@@ -30,10 +30,10 @@ class App extends React.Component {
   }
 
   handleKeyDown(e) {
-    e.preventDefault();
     if (e.ctrlKey && e.key === 'h') {
-        alert("Logging you out");
-        this.logOut();
+      e.preventDefault();
+      alert("Logging you out");
+      this.logOut();
     }  
   }
 
