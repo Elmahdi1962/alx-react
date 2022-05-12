@@ -1,6 +1,5 @@
 import React from 'react';
 import './Notifications.css';
-import { getLatestNotification } from '../utils/utils';
 import closeIcon from '../assets/close-icon.png';
 import NotificationItem from './NotificationItem';
 import PropeTypes from 'prop-types';
@@ -12,7 +11,7 @@ class Notifications extends React.Component {
     this.markAsRead = this.markAsRead.bind(this);
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps) {
     return nextProps.listNotifications.length > this.props.listNotifications.length;
   }
 
