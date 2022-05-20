@@ -40,13 +40,13 @@ class App extends React.Component {
   handleDisplayDrawer() {
     this.setState({
       displayDrawer: true
-    }, () => {console.log('displayDrawer is true');});
+    });
   }
 
   handleHideDrawer() {
     this.setState({
       displayDrawer: false
-    }, () => {console.log('displayDrawer is false');});
+    });
   }
 
   handleKeyDown(e) {
