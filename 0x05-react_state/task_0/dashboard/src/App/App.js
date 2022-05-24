@@ -14,9 +14,6 @@ import { StyleSheet, css } from 'aphrodite';
 class App extends React.Component {
   
   constructor(props) {
-    /*
-    displayDrawer = this.state;
-    */
     super(props);
     this.isLoggedIn = props.isLoggedIn;
     this.logOut = props.logOut;
