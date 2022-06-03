@@ -3,7 +3,9 @@ import * as uiActionTypes from './uiActionTypes';
 import fetchMock from 'fetch-mock';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import { loginSuccess, login, loginFailure } from './uiActionCreators';
 const fetch = require("node-fetch");
+
 
 
 describe('Testing uiActionCreators', () => {
@@ -34,10 +36,32 @@ describe('test loginRequest action', ()=> {
     const mockstore = configureStore([thunk]);
     const initialState = {};
     const store = mockstore(initialState);
-    const mockedFetch = fetchMock.mock('http://localhost:8564/login-success.json', 200);
-    store.dispatch(uiActionCreators.loginRequest('test@test', 'test'));
-    console.log(fetchMock.lastCall())
-    console.log(store.getActions())
-    expect(mockedFetch.called('/login-success.json')).toBe(true);
+    const fetch_mock = fetchMock.mock('http://localhost:8564/login-success.json', 200);
+
+    return store.dispatch(uiActionCreators.loginRequest('test@test', 'test'))
+    .then(() => {
+      const actions = store.getActions()
+      console.log(actions);
+      expect(actions[0]).toEqual(login('test@test', 'test'));
+      expect(actions[1]).toEqual(loginSuccess());
+      fetch_mock.reset();
+    });
+  });
+
+  it('verify that if the API query fails, the store received two actions LOGIN and LOGIN_FAILURE', ()=> {
+    global.fetch = fetch;
+    const mockstore = configureStore([thunk]);
+    const initialState = {};
+    const store = mockstore(initialState);
+    const fetch_mock = fetchMock.mock('http://localhost:8564/login-success.json', 500);
+
+    return store.dispatch(uiActionCreators.loginRequest('test@test', 'test'))
+    .then(() => {
+      const actions = store.getActions()
+      console.log(actions);
+      expect(actions[0]).toEqual(login('test@test', 'test'));
+      expect(actions[1]).toEqual(loginFailure());
+      fetch_mock.reset();
+    });
   });
 });

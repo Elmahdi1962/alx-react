@@ -47,7 +47,13 @@ export function loginRequest(email, password) {
   return (dispatch) => {
     dispatch(login(email, password));
     const res = fetch('http://localhost:8564/login-success.json')
-    .then((data) => {console.log('here');dispatch(loginSuccess());})
+    .then((res) => {
+      if (res.ok) {
+        dispatch(loginSuccess());
+      } else {
+        throw new Error('failed');
+      }
+    })
     .catch((err) => dispatch(loginFailure()));
     return res;
   };
