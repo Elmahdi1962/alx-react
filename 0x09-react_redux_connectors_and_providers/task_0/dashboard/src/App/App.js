@@ -7,10 +7,10 @@ import CourseList from '../CourseList/CourseList';
 import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
 import BodySection from '../BodySection/BodySection';
 import { getLatestNotification } from '../utils/utils';
-import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import { user, AppContext } from './AppContext';
 import { connect } from 'react-redux';
+import * as uiAC from '../actions/uiActionCreators';
 
 
 class App extends React.Component {
@@ -103,9 +103,9 @@ class App extends React.Component {
           <Notification
             listNotifications={this.state.listNotifications}
             markNotificationAsRead={this.markNotificationAsRead}
-            displayDrawer={this.state.displayDrawer}
-            handleDisplayDrawer={this.handleDisplayDrawer}
-            handleHideDrawer={this.handleHideDrawer}
+            displayDrawer={this.props.displayDrawer}
+            handleDisplayDrawer={this.props.displayNotificationDrawer}
+            handleHideDrawer={this.props.hideNotificationDrawer}
           />
           <div className={css(bodyStyles.App)}>
             <Header />
@@ -148,8 +148,14 @@ const footerStyles = StyleSheet.create({
 
 export function mapStateToProps(state) {
   return {
-    isLoggedIn: state.get('isUserLoggedIn')
+    isLoggedIn: state.get('isUserLoggedIn'),
+    displayDrawer: state.get('isNotificationDrawerVisible')
   };
 }
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = {
+  displayNotificationDrawer: uiAC.displayNotificationDrawer,
+  hideNotificationDrawer: uiAC.hideNotificationDrawer
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
