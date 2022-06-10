@@ -148,8 +148,8 @@ const footerStyles = StyleSheet.create({
 
 export function mapStateToProps(state) {
   return {
-    isLoggedIn: state.get('isLoggedIn')
-  }
+    isLoggedIn: state.get('isUserLoggedIn')
+  };
 }
 
 export default connect(mapStateToProps)(App);
