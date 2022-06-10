@@ -147,7 +147,9 @@ const footerStyles = StyleSheet.create({
 });
 
 export function mapStateToProps(state) {
-  return
+  return {
+    isLoggedIn: state.get('isLoggedIn')
+  }
 }
 
-export default App;
+export default connect(mapStateToProps)(App);
