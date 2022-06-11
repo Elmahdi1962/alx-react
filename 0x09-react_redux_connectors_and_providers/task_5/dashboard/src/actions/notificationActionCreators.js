@@ -16,10 +16,10 @@ export function setNotificationFilter(filter) {
 }
 export const boundSetNotificationFilter = (filter) => dispatch(setNotificationFilter(filter));
 
-export function setLoadingState(loadingState) {
+export function setLoadingState(loading) {
   return {
     type: notifsActionTypes.SET_LOADING_STATE,
-    loadingState
+    loading
   };
 }
 
