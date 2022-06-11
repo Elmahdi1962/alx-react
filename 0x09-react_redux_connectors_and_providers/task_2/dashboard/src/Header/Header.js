@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
+import { connect } from 'react-redux';
 import logo from '../assets/holberton_logo.jpg';
 import { StyleSheet, css } from 'aphrodite';
-import { AppContext } from '../App/AppContext';
+import * as uiAC from '../actions/uiActionCreators';
 
-function Header() {
-  const { user, logOut } = useContext(AppContext);
+function Header(props) {
+  const user = props.user;
 
   return (
     <>
@@ -52,4 +53,14 @@ const headerStyles = StyleSheet.create({
 	}
 });
 
-export default Header;
+export function mapStateToProps(state) {
+  return {
+    user: state.get('user')
+  };
+}
+
+export const mapDispatchToProps = {
+  logout: uiAC.logout
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
