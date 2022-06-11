@@ -3,11 +3,17 @@ import closeIcon from '../assets/close-icon.png';
 import NotificationItem from './NotificationItem';
 import PropTypes from 'prop-types';
 import NotificationItemShape from './NotificationItemShape';
+import * as notifActions from '../actions/notificationActionCreators';
+import { connect } from 'react-redux';
 import { StyleSheet, css } from 'aphrodite';
 
 class Notifications extends React.PureComponent {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    this.props.fetchNotifications();
   }
 
   render() {
@@ -144,4 +150,14 @@ Notifications.propTypes = {
   markNotificationAsRead: PropTypes.func
 };
 
-export default Notifications;
+function mapStateToProps(state, ownProps) {
+  return {
+    messages: ownProps.listNotifications
+  };
+}
+
+const mapDispatchToProps = {
+  fetchNotifications: notifActions.fetchNotifications
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Notifications);
