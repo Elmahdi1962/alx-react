@@ -1,13 +1,13 @@
 import * as actions from '../actions/uiActionTypes';
 import { Map } from 'immutable';
 
-export const initialState = Map({
+export const initialUiState = Map({
   isNotificationDrawerVisible: false,
   isUserLoggedIn: false,
   user: {}
 });
 
-export function uiReducer(state=initialState, action={type: null}) {
+export function uiReducer(state=initialUiState, action={type: null}) {
   switch(action.type) {
     case actions.DISPLAY_NOTIFICATION_DRAWER:
       return state.set('isNotificationDrawerVisible', true);

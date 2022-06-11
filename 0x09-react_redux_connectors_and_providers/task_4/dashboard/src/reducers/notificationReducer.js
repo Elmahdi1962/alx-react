@@ -2,12 +2,12 @@ import * as actions from '../actions/notificationActionTypes';
 import { Map, setIn, set } from 'immutable';
 import { notificationsNormalizer } from '../schema/notifications';
 
-export const initialState= Map({
+export const initialNotificationState= Map({
   notifications: [],
   filter: actions.NotificationTypeFilters.DEFAULT
 });
 
-export function notificationReducer(state=initialState, action={type: null}) {
+export function notificationReducer(state=initialNotificationState, action={type: null}) {
   switch(action.type) {
 
     case actions.FETCH_NOTIFICATIONS_SUCCESS:

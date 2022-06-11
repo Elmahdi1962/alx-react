@@ -5,7 +5,7 @@ import { StyleSheetTestUtils } from 'aphrodite';
 import { mapStateToProps } from './App';
 import { fromJS } from 'immutable';
 import configureStore from 'redux-mock-store'
-import { initialState } from '../reducers/uiReducer';
+import { initialState } from '../reducers/rootReducer';
 import { Provider } from 'react-redux';
 
 const mockStore = configureStore([]);
@@ -43,9 +43,36 @@ describe('Test App.js', () => {
 
 describe('Testing mapStateToProps', () => {
   it('test that verify that the function returns the right object', () => {
-    let state = fromJS({
-      isUserLoggedIn: true
-    });
+    let state = {
+      ui: fromJS({
+        isUserLoggedIn: true,
+      }),
+    };
     expect(mapStateToProps(state)).toEqual(expect.objectContaining({ isLoggedIn: true }));
+  });
+});
+
+describe("Testing rootReducer", () => {
+  it("mapStateToProps returns the right object from user Login", () => {
+    let state = {
+      ui: fromJS({
+        isUserLoggedIn: true,
+      }),
+    };
+
+    const result = mapStateToProps(state);
+
+    expect(result).toEqual({ isLoggedIn: true });
+  });
+  it("mapStateToProps returns the right object from display Drawer", () => {
+    let state = {
+      ui: fromJS({
+        isNotificationDrawerVisible: true,
+      }),
+    };
+
+    const result = mapStateToProps(state);
+
+    expect(result).toEqual({ displayDrawer: true });
   });
 });

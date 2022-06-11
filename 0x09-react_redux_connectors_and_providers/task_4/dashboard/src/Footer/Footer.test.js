@@ -4,7 +4,8 @@ import Footer from './Footer';
 import { StyleSheetTestUtils } from 'aphrodite';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
-import { initialState } from '../reducers/uiReducer';
+import { initialState } from '../reducers/rootReducer';
+import { fromJS } from 'immutable';
 
 const mockStore = configureStore([]);
 
@@ -57,7 +58,7 @@ describe('Testing Footer Component context and state', () => {
 	})
 
 	it('Tests that there is a link rendered when user is logged in within context', () => {
-		store = mockStore(initialState.merge({user: {email: 't@t.t', password: 'tt'}}));
+		store = mockStore({ ...initialState, ui: initialState.ui.merge({user: {email: 't@t.t', password: 'tt'}})});
     const wrapper = mount(
       <Provider store={store}>
         <Footer />
