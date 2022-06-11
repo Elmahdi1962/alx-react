@@ -9,7 +9,7 @@ function Login(props) {
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    props.logIn(e.target.elements.email.value, e.target.elements.password.value);
+    props.logIn(email, password);
   };
   const handleChangeEmail = (e) => {
     setEmail(e.target.value);
