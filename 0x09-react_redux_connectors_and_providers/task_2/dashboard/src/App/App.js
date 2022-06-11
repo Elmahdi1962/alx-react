@@ -75,7 +75,7 @@ class App extends React.Component {
           />
           <div className={css(bodyStyles.App)}>
             <Header />
-            {this.state.user.isLoggedIn ?
+            {this.props.isLoggedIn ?
               <BodySectionWithMarginBottom title="Course list"><CourseList listCourses={this.listCourses}/></BodySectionWithMarginBottom>
             : 
               <BodySectionWithMarginBottom title="Log in to continue"><Login logIn={this.props.login}/></BodySectionWithMarginBottom>
