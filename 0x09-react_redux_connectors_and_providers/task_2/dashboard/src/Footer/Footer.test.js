@@ -1,15 +1,25 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import Footer from './Footer';
 import { StyleSheetTestUtils } from 'aphrodite';
-import {AppContext} from '../App/AppContext';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
+import { initialState } from '../reducers/uiReducer';
+
+const mockStore = configureStore([]);
 
 describe("Testing <Footer /> component", () => {
   let wrapper;
+  let store;
 
   beforeEach(() => {
     StyleSheetTestUtils.suppressStyleInjection();
-    wrapper = shallow(<Footer />);
+    store = mockStore(initialState);
+    wrapper = mount(
+      <Provider store={store}>
+        <Footer />
+      </Provider>
+    );
   });
 
   it("Footer Component renders without crashing", () => {
@@ -22,6 +32,7 @@ describe("Testing <Footer /> component", () => {
 });
 
 describe('Testing Footer Component context and state', () => {
+  let store;
 	beforeEach(() => {
 		StyleSheetTestUtils.suppressStyleInjection();
 	});
@@ -30,20 +41,13 @@ describe('Testing Footer Component context and state', () => {
 		jest.clearAllMocks();
 	});
 
-	it('Tests that there is no link rendered when user is logged out within context', () => {
-		const context = {
-			user: {
-				email: '',
-				password: '',
-				isLoggedIn: false
-			}
-		}
-
-		const wrapper = mount(
-			<AppContext.Provider value={context}>
-				<Footer />
-			</AppContext.Provider>
-		)
+	it('Tests that there is no link rendered when user is logged out', () => {
+		store = mockStore(initialState);
+    const wrapper = mount(
+      <Provider store={store}>
+        <Footer />
+      </Provider>
+    );
 
 		expect(wrapper.find('a').length).toBe(0);
 		expect(wrapper.find('a').exists()).toBe(false);
@@ -53,19 +57,12 @@ describe('Testing Footer Component context and state', () => {
 	})
 
 	it('Tests that there is a link rendered when user is logged in within context', () => {
-		const context = {
-			user: {
-				email: '',
-				password: '',
-				isLoggedIn: true
-			}
-		}
-
-		const wrapper = mount(
-			<AppContext.Provider value={context}>
-				<Footer />
-			</AppContext.Provider>
-		)
+		store = mockStore(initialState.merge({user: {email: 't@t.t', password: 'tt'}}));
+    const wrapper = mount(
+      <Provider store={store}>
+        <Footer />
+      </Provider>
+    );
 
 		expect(wrapper.find('a').length).toBe(1);
 		expect(wrapper.find('a').exists()).toBe(true);

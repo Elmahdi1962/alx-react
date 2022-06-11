@@ -1,21 +1,22 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { jest } from '@jest/globals';
 import App from './App';
 import { StyleSheetTestUtils } from 'aphrodite';
-import { AppContext, user, logOut } from './AppContext';
 import { mapStateToProps } from './App';
 import { fromJS } from 'immutable';
-import { createStore } from 'redux';
-import { uiReducer } from '../reducers/uiReducer';
+import configureStore from 'redux-mock-store'
+import { initialState } from '../reducers/uiReducer';
 import { Provider } from 'react-redux';
+
+const mockStore = configureStore([]);
 
 describe('Test App.js', () => {
   let wrapper;
+  let store;
 
   beforeEach(() => {
     StyleSheetTestUtils.suppressStyleInjection();
-    const store = createStore(uiReducer);
+    store = mockStore(initialState);
     wrapper = mount(<Provider store={store} ><App/></Provider>);
   });
 
@@ -29,10 +30,6 @@ describe('Test App.js', () => {
 
   it('App component contains Header component', () => {
     expect(wrapper.find("Header")).toHaveLength(1);
-  });
-
-  it('App component contains Login component', () => {
-    expect(wrapper.find("Login")).toHaveLength(1);
   });
 
   it('App component contains Footer component', () => {

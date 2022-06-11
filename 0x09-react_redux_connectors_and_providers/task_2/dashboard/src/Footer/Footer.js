@@ -7,7 +7,7 @@ function Footer(props) {
 
   return (
     <div className="App-footer">
-      {user.isLoggedIn && <p><a href="#">Contact us</a></p>}
+      {(user && (typeof user === 'object' ? Object.keys(user).length !== 0 : false)) && <p><a href="#">Contact us</a></p>}
       <p>Copyright {getFullYear()} - {getFooterCopy()}</p>
     </div>
   )

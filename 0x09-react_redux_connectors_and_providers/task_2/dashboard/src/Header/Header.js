@@ -5,7 +5,8 @@ import { StyleSheet, css } from 'aphrodite';
 import * as uiAC from '../actions/uiActionCreators';
 
 function Header(props) {
-  const user = props.user;
+  const {user, logout} = props;
+
 
   return (
     <>
@@ -15,8 +16,8 @@ function Header(props) {
       </header>
 
       {
-      user.isLoggedIn && <section id="logoutSection">
-        <h2>Welcome<strong> {user.email} </strong><em><a href="#" onClick={logOut}>(logout)</a></em>
+      (user && (typeof user === 'object' ? Object.keys(user).length !== 0 : false)) && <section id="logoutSection">
+        <h2>Welcome<strong> {user.email} </strong><em><a href="#" onClick={logout}>(logout)</a></em>
         </h2>
       </section>
       }

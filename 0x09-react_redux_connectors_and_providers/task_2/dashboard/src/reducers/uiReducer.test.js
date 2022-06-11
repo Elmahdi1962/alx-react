@@ -16,4 +16,18 @@ describe('Testing uiReducer', () => {
     const res = uiReducer(undefined, {type: actions.DISPLAY_NOTIFICATION_DRAWER});
     expect(res.toJS()).toStrictEqual({ ...initialState.toJS(), isNotificationDrawerVisible: true });
   });
+
+  it('verify the state returned by the uiReducer function, when the action LOGIN is passed', () => {
+    const res = uiReducer(undefined, {type: actions.LOGIN, user: {email:'test'}});
+    expect(res.toJS()).toStrictEqual({ ...initialState.toJS(), user: {email:'test'}});
+  });
+
+  it('verify the state returned by the uiReducer function, when the action LOGOUT is passed', () => {
+    const res = uiReducer(undefined, {type: actions.LOGOUT});
+    expect(res.toJS()).toStrictEqual({ 
+      ...initialState.toJS(),
+      isUserLoggedIn: false,
+      user: null
+    });
+  });
 });
