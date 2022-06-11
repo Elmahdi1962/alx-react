@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
+import { connect } from 'react-redux';
 import { getFooterCopy, getFullYear } from '../utils/utils';
-import { AppContext } from '../App/AppContext';
 
-function Footer() {
-  const { user } = useContext(AppContext);
+function Footer(props) {
+  const user = props.user;
+
   return (
     <div className="App-footer">
       {user.isLoggedIn && <p><a href="#">Contact us</a></p>}
@@ -12,4 +13,10 @@ function Footer() {
   )
 }
 
-export default Footer;
+export function mapStateToProps(state) {
+  return {
+    user: state.get('user')
+  };
+}
+
+export default connect(mapStateToProps)(Footer);
