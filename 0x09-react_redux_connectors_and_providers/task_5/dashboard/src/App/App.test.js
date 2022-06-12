@@ -7,8 +7,11 @@ import { fromJS } from 'immutable';
 import configureStore from 'redux-mock-store'
 import { initialState } from '../reducers/rootReducer';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import fetchMock from 'fetch-mock';
 
-const mockStore = configureStore([]);
+fetchMock.mock('*', 200);
+const mockStore = configureStore([thunk]);
 
 describe('Test App.js', () => {
   let wrapper;

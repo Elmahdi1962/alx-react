@@ -50,7 +50,8 @@ describe('Testing notificationReducer', () => {
           isRead: false
         }
       },
-      filter: 'DEFAULT'
+      filter: 'DEFAULT',
+      loading: false,
     };
     const res = notificationReducer(undefined, action);
     expect(res.toJS()).toStrictEqual(expected);

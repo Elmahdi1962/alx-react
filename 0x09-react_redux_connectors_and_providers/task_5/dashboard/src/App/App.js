@@ -55,8 +55,6 @@ class App extends React.Component {
       }}>
         <React.Fragment>
           <Notification
-            listNotifications={this.state.listNotifications}
-            markNotificationAsRead={this.markNotificationAsRead}
             displayDrawer={this.props.displayDrawer}
             handleDisplayDrawer={this.props.displayNotificationDrawer}
             handleHideDrawer={this.props.hideNotificationDrawer}

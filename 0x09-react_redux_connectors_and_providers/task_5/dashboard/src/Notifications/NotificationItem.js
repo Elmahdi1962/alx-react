@@ -50,7 +50,7 @@ const itemStyles = StyleSheet.create({
 NotificationItem.defaultProps = {
   type: 'default',
   markAsRead: () => {},
-	id: 0
+	id: '0'
 };
 
 NotificationItem.propTypes = {
@@ -58,7 +58,7 @@ NotificationItem.propTypes = {
   type: PropTypes.string.isRequired,
   value: PropTypes.string,
   markAsRead: PropTypes.func,
-  id: PropTypes.number
+  id: PropTypes.string
 };
 
 export default NotificationItem;

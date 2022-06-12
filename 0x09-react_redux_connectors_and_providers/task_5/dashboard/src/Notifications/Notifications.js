@@ -2,10 +2,10 @@ import React from 'react';
 import closeIcon from '../assets/close-icon.png';
 import NotificationItem from './NotificationItem';
 import PropTypes from 'prop-types';
-import NotificationItemShape from './NotificationItemShape';
 import * as notifActions from '../actions/notificationActionCreators';
 import { connect } from 'react-redux';
 import { StyleSheet, css } from 'aphrodite';
+import { fromJS } from 'immutable';
 
 class Notifications extends React.PureComponent {
   constructor(props) {
@@ -53,19 +53,19 @@ class Notifications extends React.PureComponent {
             }
             <ul className={css(notificationStyles.ul)}>
               {
-                this.props.listNotifications.length == 0 ?
+                Object.values(this.props.listNotifications).length == 0 ?
                   <NotificationItem type="default" value="No new notification for now" />
                 : null
               }
               {
-                this.props.listNotifications.map((val, idx)=> {
+                Object.values(this.props.listNotifications).map((val, idx) => {
                   return <NotificationItem
                   type={val.type}
                   value={val.value}
                   html={val.html}
-                  key={val.id}
+                  key={val.guid}
                   markAsRead={this.props.markNotificationAsRead}
-                  id={val.id}
+                  id={val.guid}
                 />
                 })
               }
@@ -139,20 +139,20 @@ Notifications.defaultProps = {
   listNotifications: [],
   handleHideDrawer: () => {},
   handleDisplayDrawer: () => {},
-  markNotificationAsRead: () => {}
+  markNotificationAsRead: () => {},
+  fetchNotifications: () => {},
 };
 
 Notifications.propTypes = {
   displayDrawer: PropTypes.bool,
-  listNotifications: PropTypes.arrayOf(NotificationItemShape),
   handleHideDrawer: PropTypes.func,
   handleDisplayDrawer: PropTypes.func,
-  markNotificationAsRead: PropTypes.func
 };
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state, ownprops) {
   return {
-    messages: ownProps.listNotifications
+    listNotifications: state.notifications.get('messages'),
+    ...ownprops
   };
 }
 
