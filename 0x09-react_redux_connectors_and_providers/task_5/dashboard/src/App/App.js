@@ -25,22 +25,10 @@ class App extends React.Component {
       {id: 3, name: 'React', credit: 40}
     ];
 
-    this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
-
     this.state = {
-      user: user,
-      listNotifications: [
-        {id: 1, value: "New course available", type: "default"},
-        {id: 2, value: "New resume available", type: "urgent"},
-        {id: 3, html: {__html: getLatestNotification()}, type: "urgent"},
-      ]
+      user: user
     };
 
-  }
-
-  markNotificationAsRead(id) {
-    const newList = this.state.listNotifications.filter(not => not.id !== id);
-    this.setState({ listNotifications: newList });
   }
 
   handleKeyDown(e) {
