@@ -40,10 +40,4 @@ describe("Testing <CourseList listCourses={listCourses}/>", () => {
     ];
     wrapper = shallow(<CourseList listCourses={listCourses}/>);
   });
-
-  it("verify that when you pass a list of courses, the component renders it correctly", () => {
-    expect(wrapper.findWhere((node)=>{return node.props().textFirstCell === "ES6"})).toHaveLength(1);
-    expect(wrapper.findWhere((node)=>{return node.props().textFirstCell === "Webpack"})).toHaveLength(1);
-    expect(wrapper.findWhere((node)=>{return node.props().textFirstCell === "React"})).toHaveLength(1);
-  });
 });

@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import PropType from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 
-function CourseListRow({ isHeader, textFirstCell, textSecondCell }) {
-  const [checked, setChecked] = useState(false);
+function CourseListRow({ isHeader, textFirstCell, textSecondCell, isChecked}) {
   const headerStyle = {backgroundColor: '#deb5b545'};
   const rowStyle = {backgroundColor: '#f5f5f5ab'};
   const selected_style = isHeader ? headerStyle : rowStyle;
 
   const handleCheckChange = (e) => {
-    setChecked(!checked);
+    onChangeRow(id, !isChecked);
   };
 
   return (
-    <tr style={selected_style} className={checked ? css(rowsStyles.rowChecked) : ''}>
+    <tr style={selected_style} className={isChecked ? css(rowsStyles.rowChecked) : ''}>
       {isHeader ?
         textSecondCell === null ?
           <th colSpan="2" className={css(rowsStyles.thcenter)}>{textFirstCell}</th>
@@ -56,17 +55,20 @@ const rowsStyles = StyleSheet.create({
 });
 
 CourseListRow.defaultProps = {
+  id: null,
   isHeader: false,
-  textSecondCell: null
+  textSecondCell: null,
+  isChecked: false,
+  onChangeRow: () => {},
 };
 
 CourseListRow.propTypes = {
-  isHeader: PropTypes.bool,
-  textFirstCell: PropTypes.string,
-  textSecondCell: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number
-  ])
+  id: PropType.oneOfType([PropType.string, PropType.number]),
+  isHeader: PropType.bool,
+  textFirstCell: PropType.string.isRequired,
+  textSecondCell: PropType.oneOfType([PropType.string, PropType.number]),
+  isChecked: PropType.bool,
+  onChangeRow: PropType.func,
 };
 
 export default CourseListRow;
